@@ -146,29 +146,29 @@ testinium-qe-automation
 
 ---
 
-## 4. Testlerin Çalıştırılması
+## Testlerin Çalıştırılması
 
 Testleri çalıştırmak için farklı yöntemler mevcuttur. Maven, IDE veya belirli senaryoları hedefleyen komutlar kullanabilirsiniz.
 
-### 4.1. Maven Kullanarak Testleri Çalıştırma
+### Maven Kullanarak Testleri Çalıştırma
 
 ```bash
 mvn clean test
 ```
 
-### 4.2. Belirli Feature Dosyasını Çalıştırma
+### Belirli Feature Dosyasını Çalıştırma
 
 ```bash
 mvn test -Dcucumber.options="src/test/resources/features/happy-path.feature"
 ```
 
-### 4.3. IDE Üzerinden Test Çalıştırma
+### IDE Üzerinden Test Çalıştırma
 
 -   IntelliJ IDEA veya Eclipse gibi IDE’lerde `TestRunner.java` dosyasına sağ tıklayarak **`Run TestRunner`** şeklinde de testleri tetikleyebilirsiniz.
 -   Sonuçlar yine `target/surefire-reports/` altında toplanır.
 
 
-### 4.4. Tarayıcı Seçimi
+### Tarayıcı Seçimi
 
 -   Projede kullanılan `DriverManager.configureDriverBasedOnTag(scenario)` fonksiyonu, senaryo etiketlerini inceleyerek tarayıcıyı belirler.
 -   Örnek etiketler:
@@ -177,16 +177,16 @@ mvn test -Dcucumber.options="src/test/resources/features/happy-path.feature"
     -   `@browser:edge`
 -   Eğer etiket belirtilmezse (ya da varsayılan belirlenmişse), **Chrome** (veya projede varsayılan tanımlanmış tarayıcı) başlar.
 
-### 4.5. Mobil Emülasyon (Chrome)
+### Mobil Emülasyon (Chrome)
 
 -   `@mobile` etiketi, **Chrome** üzerinde mobil emülasyon modunu aktif eder (örnek olarak iPhone X tanımlı).
 -   Firefox veya Edge için mobil emülasyon desteklenmez, `DriverManager` içindeki `setDriver(...)` bunu log'lar.
 
 ---
 
-## 5. Allure Raporu Oluşturma
+## Allure Raporu Oluşturma
 
-### 5.1. Maven ile Allure Raporu Üretme
+### Maven ile Allure Raporu Üretme
 
 ```bash
 allure serve allure-results
@@ -194,7 +194,7 @@ allure serve allure-results
 -   Test sonuçlarını birleştirir.
 -   **Geçici bir sunucu** açarak raporu **tarayıcıda** otomatik göstermeye çalışır.
 
-### 5.2. Allure Konfigürasyonu (`pom.xml`)
+### Allure Konfigürasyonu (`pom.xml`)
 
 ```xml
 <dependency>
