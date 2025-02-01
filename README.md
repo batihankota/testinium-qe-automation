@@ -224,7 +224,7 @@ allure serve allure-results
 </plugin>
 ```
 
-## 6. Lisans
+## Lisans
 
 Bu proje [MIT](LICENSE) lisansı ile lisanslanmıştır.
 
