@@ -1,0 +1,145 @@
+{
+  "# ------------------ CATCHY LABS ------------------ #": {},
+  "usernameInput": {
+    "cssSelector": "input[placeholder='Username']"
+  },
+  "passwordInput": {
+    "cssSelector": "input[placeholder='Password']"
+  },
+  "loginButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93'  and text()='Login']"
+  },
+
+  "# ------------------ DETAILS PAGE ------------------ #": {},
+  "logOutButton": {
+    "cssSelector": "[class='css-146c3p1 r-jwli3a r-vw2c0b r-1d4mawv']"
+  },
+  "openMoneyTransferAppButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93'  and text()='Open Money Transfer']"
+  },
+
+  "# ------------------ MAIN PAGE ------------------ #": {},
+  "backButton": {
+    "cssSelector": ".css-146c3p1.r-lrvibr"
+  },
+  "accountNameText": {
+    "cssSelector": "[class='css-175oi2r r-14lw9ot r-z2wwpe r-edyy15'] [class='css-175oi2r']:nth-of-type(1) [class='css-146c3p1 r-1ozpqpt r-yv33h5 r-1b43r93']"
+  },
+  "accountTypeText": {
+    "cssSelector": "[class] [class='css-175oi2r']:nth-of-type(3) [class='css-146c3p1 r-1ozpqpt r-yv33h5 r-1b43r93']"
+  },
+  "creationTimeText": {
+    "cssSelector": "[class] [class='css-175oi2r']:nth-of-type(5) [class='css-146c3p1 r-1ozpqpt r-yv33h5 r-1b43r93']"
+  },
+  "amountText": {
+    "cssSelector": "div:nth-of-type(7) > .css-175oi2r > .css-146c3p1.r-1b43r93.r-1ozpqpt.r-yv33h5"
+  },
+  "lastTransaction": {
+    "cssSelector": ".css-175oi2r.r-1loqt21.r-1otgn73.r-1awozwy.r-zpn6ln.r-qklmqi.r-18u37iz.r-xd6kpl.r-tskmnb"
+  },
+  "lastTransactionAmount": {
+    "cssSelector": ".css-146c3p1.r-1ozpqpt.r-yv33h5.r-1b43r93[style*=margin-right: 4px;]"
+  },
+  "lastTransactionSender": {
+    "cssSelector": "div.css-175oi2r.r-1777fci select:nth-of-type(1)"
+  },
+  "lastTransactionReceiver": {
+    "cssSelector": "div.css-146c3p1.r-1ozpqpt.r-yv33h5.r-1b43r93.r-6e0ovw:first-of-type"
+  },
+  "transferMoney_ModalButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93'  and text()='Transfer money']"
+  },
+  "addMoney_ModalButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93'  and text()='Add money']"
+  },
+  "editAccount_ModalButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93'  and text()='Edit account']"
+  },
+
+  "# ------------------ TRANSFER MONEY MODAL------------------ #": {},
+  "transferMoney_PageContainer": {
+    "xpath": "//div[@class='css-175oi2r r-150rngu r-eqz5dr r-16y2uox r-1wbh5a2 r-11yh6sk r-1rnoaur r-agouwx r-1pi2tsx r-13qz1uu']/div/div[@class='css-146c3p1 r-1ozpqpt r-g6644c r-1b43r93']"
+  },
+  "transferMoney_SenderAccountDropdown": {
+    "xpath": "(//div[@class='css-175oi2r r-1777fci']/select)[1]"
+  },
+  "transferMoney_ReceiverAccountDropdown": {
+    "xpath": "(//div[@class='css-175oi2r r-1777fci']/select)[2]"
+  },
+  "transferMoney_ReceiverAccountDropdown_Option1": {
+    "xpath": "//option[text()='Testinium-1']"
+  },
+  "transferMoney_ReceiverAccountDropdown_Option2": {
+    "xpath": "//option[text()='Testinium-2']"
+  },
+  "transferMoney_ReceiverAccountDropdown_Option3": {
+    "xpath": "//option[text()='Testinium-3']"
+  },
+  "transferMoney_ReceiverAccountDropdown_Option4": {
+    "xpath": "//option[text()='Testinium-4']"
+  },
+  "transferMoney_ReceiverAccountDropdown_Option5": {
+    "xpath": "//option[text()='Testinium-5']"
+  },
+  "transferMoney_AmountInput": {
+    "cssSelector": "[class] [class='css-11aywtz r-6taxm2 r-1eh6qqt r-z2wwpe r-rs99b7 r-h3s6tt r-1qhn6m8']"
+  },
+  "transferMoney_SendButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93' and text()='Send']"
+  },
+  "transferMoney_TransferAmountControl": {
+    "cssSelector": "[class='css-175oi2r r-150rngu r-eqz5dr r-16y2uox r-1wbh5a2 r-11yh6sk r-1rnoaur r-agouwx'] [class] [class='css-175oi2r']:nth-of-type(1) [class='css-146c3p1 r-1ozpqpt r-yv33h5 r-1b43r93']"
+  },
+
+  "# ------------------ ADD MONEY MODAL------------------ #": {},
+  "addMoney_PageContainer": {
+    "cssSelector": ".css-146c3p1.r-ubezar.r-vw2c0b"
+  },
+  "addMoney_PageVisibilityCheck": {
+    "cssSelector": "[class] [class='css-146c3p1 r-1ozpqpt r-g6644c r-1b43r93 r-15zivkp']"
+  },
+  "addMoney_CardNumberInput": {
+    "cssSelector": "[class] [class='css-175oi2r r-13qz1uu']:nth-of-type(2) input"
+  },
+  "addMoney_CardHolderInput": {
+    "cssSelector": "[class] [class='css-175oi2r r-13qz1uu']:nth-of-type(4) input"
+  },
+  "addMoney_ExpiryDateInput": {
+    "cssSelector": "input[placeholder='MM/YY']"
+  },
+  "addMoney_CvvInput": {
+    "xpath": "(//div[@class='css-175oi2r r-13qz1uu']/input)[4]"
+  },
+  "addMoney_AmountInput": {
+    "xpath": "(//div[@class='css-175oi2r r-13qz1uu']/input)[5]"
+  },
+  "addMoney_AddButton": {
+    "xpath": "//div[@class='css-146c3p1 r-jwli3a r-1b43r93'  and text()='Add']"
+  },
+  "addMoney_CardNumberError": {
+    "cssSelector": "[class] [class='css-175oi2r r-13qz1uu']:nth-of-type(2) [class='css-146c3p1 r-yv33h5 r-1jb9un0 r-1enofrn r-14gqq1x']"
+  },
+  "addMoney_CardHolderError": {
+    "cssSelector": "[class] [class='css-175oi2r r-13qz1uu']:nth-of-type(4) [class='css-146c3p1 r-yv33h5 r-1jb9un0 r-1enofrn r-14gqq1x']"
+  },
+  "addMoney_ExpiryDateError": {
+    "cssSelector": "[class='css-175oi2r r-150rngu r-eqz5dr r-16y2uox r-1wbh5a2 r-11yh6sk r-1rnoaur r-agouwx r-1pi2tsx r-13qz1uu'] [class] [class='css-175oi2r']:nth-of-type(1) [class='css-146c3p1 r-yv33h5 r-1jb9un0 r-1enofrn r-14gqq1x']"
+  },
+  "addMoney_CvvError": {
+    "cssSelector": "[class='css-175oi2r r-150rngu r-eqz5dr r-16y2uox r-1wbh5a2 r-11yh6sk r-1rnoaur r-agouwx r-1pi2tsx r-13qz1uu'] [class='css-175oi2r']:nth-of-type(2) [class='css-146c3p1 r-yv33h5 r-1jb9un0 r-1enofrn r-14gqq1x']"
+  },
+  "addMoney_AmountError": {
+    "cssSelector": "[class] [class='css-175oi2r r-13qz1uu']:nth-of-type(8) [class='css-146c3p1 r-yv33h5 r-1jb9un0 r-1enofrn r-14gqq1x']"
+  },
+
+  "# ------------------ EDIT ACCOUNT MODAL------------------ #": {},
+  "editAccount_PageHeader": {
+    "xpath": "//div[@class='css-146c3p1 r-ubezar r-vw2c0b'  and text()='Edit account']"
+  },
+  "editAccount_NameInput": {
+    "cssSelector": "[class='css-11aywtz r-6taxm2 r-1eh6qqt r-z2wwpe r-rs99b7 r-h3s6tt r-1qhn6m8']"
+  },
+  "editAccount_UpdateButton": {
+    "cssSelector": "div[class='css-175oi2r'] > div[tabindex]"
+  }
+}
