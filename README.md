@@ -103,8 +103,7 @@ testinium-qe-automation
 
 - **Surefire Plugin**: `mvn test` komutuyla testleri çalıştırmak için.
 - **Allure Maven Plugin**: `mvn allure:serve` veya `mvn allure:report` ile rapor oluşturma.
-- **Log4j 2** ayarları (`log4j-api`, `log4j-core`, `log4j-slf4j-impl`).
-- **Cucumber**, **Selenium**, **JUnit**, **WebDriverManager**, **AssertJ** gibi test bağımlılıkları.
+- **Cucumber**, **Selenium**, **JUnit**, **WebDriverManager**, **AssertJ**, **Log4j** gibi test bağımlılıkları.
 
 ### DriverSettings & DriverManager
 
