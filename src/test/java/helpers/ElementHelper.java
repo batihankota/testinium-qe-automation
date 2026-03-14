@@ -11,22 +11,22 @@ import java.time.Duration;
 
 public class ElementHelper {
 
-    private static By selector;
-    private static WebElement element;
+    private static final ThreadLocal<WebElement> element = new ThreadLocal<>();
 
     public static void setElement(String elementKey) {
-        selector = SelectorUtils.getSelector(elementKey);
+        By selector = SelectorUtils.getSelector(elementKey);
         if (selector == null) {
             throw new IllegalStateException("Selector not found for: " + elementKey);
         }
-        element = waitAndFindElement(selector);
+        element.set(waitAndFindElement(selector));
     }
 
     public static WebElement getElement() {
-        if (element == null) {
+        WebElement el = element.get();
+        if (el == null) {
             throw new IllegalStateException("Element is not set. Call setElement() first.");
         }
-        return element;
+        return el;
     }
 
     private static WebElement waitAndFindElement(By selector) {

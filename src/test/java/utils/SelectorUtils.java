@@ -5,15 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 public class SelectorUtils {
 
     private static final Logger logger = Logger.getLogger(SelectorUtils.class);
 
-    private static final String ELEMENTS_JSON_PATH = "src/test/resources/elements.json";
+    private static final String ELEMENTS_JSON_RESOURCE = "elements.json";
 
     private static JsonNode selectors;
 
@@ -23,15 +23,19 @@ public class SelectorUtils {
 
     private static void loadSelectors() {
         try {
-            logger.info("Loading selectors from JSON file: " + ELEMENTS_JSON_PATH);
+            logger.info("Loading selectors from classpath resource: " + ELEMENTS_JSON_RESOURCE);
+            InputStream is = SelectorUtils.class.getClassLoader().getResourceAsStream(ELEMENTS_JSON_RESOURCE);
+            if (is == null) {
+                throw new IllegalStateException("Classpath resource not found: " + ELEMENTS_JSON_RESOURCE);
+            }
             ObjectMapper mapper = new ObjectMapper();
-            selectors = mapper.readTree(new File(ELEMENTS_JSON_PATH));
+            selectors = mapper.readTree(is);
             if (selectors == null || selectors.isNull()) {
-                throw new IllegalStateException("No data found in " + ELEMENTS_JSON_PATH);
+                throw new IllegalStateException("No data found in " + ELEMENTS_JSON_RESOURCE);
             }
             logger.info("Selector JSON file loaded successfully.");
         } catch (IOException e) {
-            logger.error("Error loading elements.json file from path: " + ELEMENTS_JSON_PATH, e);
+            logger.error("Error loading elements.json resource: " + ELEMENTS_JSON_RESOURCE, e);
             throw new RuntimeException("Failed to load selectors JSON file", e);
         }
     }
@@ -43,7 +47,7 @@ public class SelectorUtils {
 
         JsonNode elementNode = selectors.path(elementName);
         if (elementNode.isMissingNode() || elementNode.isNull()) {
-            logger.error("Element '" + elementName + "' not found in JSON at path: " + ELEMENTS_JSON_PATH);
+            logger.error("Element '" + elementName + "' not found in JSON resource: " + ELEMENTS_JSON_RESOURCE);
             throw new IllegalArgumentException("Element not found in JSON: " + elementName);
         }
 

@@ -3,7 +3,6 @@ package helpers;
 import context.ScenarioContext;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
-import steps.DataSteps;
 import utils.ExceptionHandler;
 
 import java.math.BigDecimal;
@@ -12,7 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DataHelper {
 
-    private static final Logger logger = Logger.getLogger(DataSteps.class);
+    private static final Logger logger = Logger.getLogger(DataHelper.class);
+    private static final String NUMERIC_CHARS_PATTERN = "[^\\d.]";
 
     public static void storeTrimmedText(String elementKey, String variableName) {
         try {
@@ -31,13 +31,9 @@ public class DataHelper {
 
     public static void verifySubtraction(String variableOne, String variableTwo, String variableThree) {
         try {
-            BigDecimal valueOne = ScenarioContext.getNumeric(variableOne);
-            BigDecimal valueTwo = ScenarioContext.getNumeric(variableTwo);
-            BigDecimal expectedValue = ScenarioContext.getNumeric(variableThree);
-
-            if (valueOne == null || valueTwo == null || expectedValue == null) {
-                throw new IllegalStateException("One or more variables are not set: " + variableOne + ", " + variableTwo + ", " + variableThree);
-            }
+            BigDecimal valueOne = requireNumeric(variableOne);
+            BigDecimal valueTwo = requireNumeric(variableTwo);
+            BigDecimal expectedValue = requireNumeric(variableThree);
 
             BigDecimal actualResult = valueOne.subtract(valueTwo);
 
@@ -53,13 +49,9 @@ public class DataHelper {
 
     public static void verifyAddition(String variableOne, String variableTwo, String variableThree) {
         try {
-            BigDecimal valueOne = ScenarioContext.getNumeric(variableOne);
-            BigDecimal valueTwo = ScenarioContext.getNumeric(variableTwo);
-            BigDecimal expectedValue = ScenarioContext.getNumeric(variableThree);
-
-            if (valueOne == null || valueTwo == null || expectedValue == null) {
-                throw new IllegalStateException("One or more variables are not set: " + variableOne + ", " + variableTwo + ", " + variableThree);
-            }
+            BigDecimal valueOne = requireNumeric(variableOne);
+            BigDecimal valueTwo = requireNumeric(variableTwo);
+            BigDecimal expectedValue = requireNumeric(variableThree);
 
             BigDecimal actualResult = valueOne.add(valueTwo);
 
@@ -86,10 +78,7 @@ public class DataHelper {
 
     public static void storeValue(String variableName, String value) {
         try {
-            if (value == null) {
-                value = "";
-            }
-            ScenarioContext.put(variableName, value.trim());
+            ScenarioContext.put(variableName, value == null ? "" : value.trim());
         } catch (Exception e) {
             ExceptionHandler.handleException("Failed to store value into variable '" + variableName + "'", e);
         }
@@ -107,13 +96,12 @@ public class DataHelper {
                 throw new IllegalStateException("Element has no numeric value to store.");
             }
 
-            BigDecimal numericValue = new BigDecimal(textValue.replaceAll("[^\\d.]", ""));
+            BigDecimal numericValue = new BigDecimal(textValue.replaceAll(NUMERIC_CHARS_PATTERN, ""));
             ScenarioContext.put(variableName, numericValue);
         } catch (Exception e) {
             ExceptionHandler.handleException("Failed to store numeric value into variable '" + variableName + "'", e);
         }
     }
-
 
     public static void compareTextWithElement(String variableName, WebElement element) {
         try {
@@ -131,15 +119,11 @@ public class DataHelper {
 
     public static void compareSumWithElement(String variableOne, String variableTwo, WebElement element) {
         try {
-            BigDecimal valueOne = ScenarioContext.getNumeric(variableOne);
-            BigDecimal valueTwo = ScenarioContext.getNumeric(variableTwo);
-
-            if (valueOne == null || valueTwo == null) {
-                throw new IllegalStateException("One or more variables are not set: " + variableOne + ", " + variableTwo);
-            }
+            BigDecimal valueOne = requireNumeric(variableOne);
+            BigDecimal valueTwo = requireNumeric(variableTwo);
 
             BigDecimal expectedSum = valueOne.add(valueTwo);
-            BigDecimal actualValue = new BigDecimal(element.getText().replaceAll("[^\\d.]", ""));
+            BigDecimal actualValue = extractNumeric(element.getText());
 
             assertThat(actualValue.compareTo(expectedSum))
                     .withFailMessage("Expected: %s but found: %s when summing '%s' and '%s'",
@@ -152,15 +136,11 @@ public class DataHelper {
 
     public static void compareDifferenceWithElement(String variableOne, String variableTwo, WebElement element) {
         try {
-            BigDecimal valueOne = ScenarioContext.getNumeric(variableOne);
-            BigDecimal valueTwo = ScenarioContext.getNumeric(variableTwo);
-
-            if (valueOne == null || valueTwo == null) {
-                throw new IllegalStateException("One or more variables are not set: " + variableOne + ", " + variableTwo);
-            }
+            BigDecimal valueOne = requireNumeric(variableOne);
+            BigDecimal valueTwo = requireNumeric(variableTwo);
 
             BigDecimal expectedDifference = valueOne.subtract(valueTwo);
-            BigDecimal actualValue = new BigDecimal(element.getText().replaceAll("[^\\d.]", ""));
+            BigDecimal actualValue = extractNumeric(element.getText());
 
             assertThat(actualValue.compareTo(expectedDifference))
                     .withFailMessage("Expected: %s but found: %s when subtracting '%s' from '%s'",
@@ -171,15 +151,10 @@ public class DataHelper {
         }
     }
 
-
     public static void compareNumericDifference(String variableName1, String variableName2, int expectedDifference) {
         try {
-            BigDecimal value1 = ScenarioContext.getNumeric(variableName1);
-            BigDecimal value2 = ScenarioContext.getNumeric(variableName2);
-
-            if (value1 == null || value2 == null) {
-                throw new IllegalStateException("One of the variables is not set: " + variableName1 + ", " + variableName2);
-            }
+            BigDecimal value1 = requireNumeric(variableName1);
+            BigDecimal value2 = requireNumeric(variableName2);
 
             BigDecimal actualDifference = value2.subtract(value1);
 
@@ -216,4 +191,15 @@ public class DataHelper {
         }
     }
 
+    private static BigDecimal requireNumeric(String variableName) {
+        BigDecimal value = ScenarioContext.getNumeric(variableName);
+        if (value == null) {
+            throw new IllegalStateException("Variable is not set or not numeric: " + variableName);
+        }
+        return value;
+    }
+
+    private static BigDecimal extractNumeric(String text) {
+        return new BigDecimal(text.replaceAll(NUMERIC_CHARS_PATTERN, ""));
+    }
 }

@@ -1,6 +1,5 @@
 package steps;
 
-import helpers.ElementHelper;
 import helpers.WaitHelper;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,8 +15,7 @@ public class WaitSteps {
     @Then("Wait until element {string} is visible")
     public void waitForElementToBeVisible(String elementKey) {
         try {
-            ElementHelper.setElement(elementKey);
-            WaitHelper.waitForElementToBeVisible(ElementHelper.getElement());
+            WaitHelper.waitForElementToBeVisible(elementKey);
             logger.info("Waited until element '" + elementKey + "' became visible.");
         } catch (Exception e) {
             ExceptionHandler.handleException("Error occurred while waiting for element '" + elementKey + "' to be visible", e);
@@ -28,8 +26,7 @@ public class WaitSteps {
     @Then("Wait until element {string} is clickable")
     public void waitForElementToBeClickable(String elementKey) {
         try {
-            ElementHelper.setElement(elementKey);
-            WaitHelper.waitForElementToBeClickable(ElementHelper.getElement());
+            WaitHelper.waitForElementToBeClickable(elementKey);
             logger.info("Waited until element '" + elementKey + "' became clickable.");
         } catch (Exception e) {
             ExceptionHandler.handleException("Error occurred while waiting for element '" + elementKey + "' to be clickable", e);

@@ -31,7 +31,10 @@ public class Hooks {
         try {
             if (scenario.isFailed()) {
                 logger.error("Scenario Failed: \"" + scenario.getName() + "\"");
-                ScreenshotHelper.captureScreenshot();
+                byte[] screenshot = ScreenshotHelper.captureScreenshot();
+                if (screenshot.length > 0) {
+                    scenario.attach(screenshot, "image/png", "Screenshot on Failure");
+                }
             } else {
                 logger.info("Scenario Passed: \"" + scenario.getName() + "\"");
             }

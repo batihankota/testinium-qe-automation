@@ -1,6 +1,7 @@
 package steps;
 
 import context.ScenarioContext;
+import helpers.ActionHelper;
 import helpers.DataHelper;
 import helpers.ElementHelper;
 import io.cucumber.java.en.And;
@@ -9,6 +10,8 @@ import io.cucumber.java.en.When;
 import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
 import utils.ExceptionHandler;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DataSteps {
 
@@ -30,8 +33,7 @@ public class DataSteps {
     @When("Store trimmed text from element {string} into variable {string}")
     public void storeTrimmedTextFromElementIntoVariable(String elementKey, String variableName) {
         try {
-            ElementHelper.setElement(elementKey);
-            DataHelper.storeTrimmedText(variableName, ElementHelper.getElement().getText());
+            DataHelper.storeTrimmedText(elementKey, variableName);
             logger.info("Stored trimmed text from element '" + elementKey + "' into variable '" + variableName + "'.");
         } catch (Exception e) {
             ExceptionHandler.handleException("Error storing trimmed text from element '" + elementKey + "' into variable '" + variableName + "'", e);
@@ -78,7 +80,11 @@ public class DataSteps {
     @Then("Compare text in variable {string} with {string}")
     public void compareTextInVariableWithString(String variableName, String expectedText) {
         try {
-            DataHelper.storeText(variableName, expectedText);
+            String storedValue = ScenarioContext.getString(variableName);
+            if (storedValue == null) {
+                throw new IllegalStateException("No value found in ScenarioContext for variable: " + variableName);
+            }
+            assertThat(storedValue).isEqualTo(expectedText.trim());
             logger.info("Compared text in variable '" + variableName + "' with expected text '" + expectedText + "'.");
         } catch (Exception e) {
             ExceptionHandler.handleException("Error comparing stored text in variable '" + variableName + "' with expected text '" + expectedText + "'", e);
@@ -157,9 +163,11 @@ public class DataSteps {
     @When("Enter text in element {string} from variable {string}")
     public void enterTextInElementFromVariable(String elementKey, String variableName) {
         try {
-            ElementHelper.setElement(elementKey);
             String text = ScenarioContext.getString(variableName);
-            ElementHelper.getElement().sendKeys(text);
+            if (text == null) {
+                throw new IllegalStateException("No value found in ScenarioContext for variable: " + variableName);
+            }
+            ActionHelper.enterText(elementKey, text);
             logger.info("Entered text from variable '" + variableName + "' into element '" + elementKey + "'.");
         } catch (Exception e) {
             ExceptionHandler.handleException("Error entering text from variable '" + variableName + "' into element '" + elementKey + "'", e);

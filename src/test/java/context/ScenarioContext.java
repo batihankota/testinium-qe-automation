@@ -22,6 +22,9 @@ public class ScenarioContext {
 
     public static BigDecimal getNumeric(String key) {
         Object value = scenarioData.get().get(key);
+        if (value instanceof BigDecimal) {
+            return (BigDecimal) value;
+        }
         if (value instanceof Number) {
             return BigDecimal.valueOf(((Number) value).doubleValue());
         }
