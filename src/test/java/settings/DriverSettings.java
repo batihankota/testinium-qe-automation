@@ -13,7 +13,6 @@ import utils.ExceptionHandler;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class DriverSettings {
 
@@ -21,8 +20,11 @@ public class DriverSettings {
     private static final Logger logger = Logger.getLogger(DriverSettings.class);
 
     public static WebDriver getDriver() {
-        return Optional.ofNullable(driver.get())
-                .orElseThrow(() -> new IllegalStateException("WebDriver is not initialized. Call setDriver() first."));
+        WebDriver d = driver.get();
+        if (d == null) {
+            throw new IllegalStateException("WebDriver is not initialized. Call setDriver() first.");
+        }
+        return d;
     }
 
     public static void setDriver(String browserName, boolean isMobile) {
@@ -82,7 +84,8 @@ public class DriverSettings {
     }
 
     public static void quitDriver() {
-        Optional.ofNullable(driver.get()).ifPresent(webDriver -> {
+        WebDriver webDriver = driver.get();
+        if (webDriver != null) {
             try {
                 logger.info("Quitting WebDriver instance.");
                 webDriver.quit();
@@ -91,6 +94,6 @@ public class DriverSettings {
             } catch (Exception e) {
                 ExceptionHandler.handleException("Error while quitting WebDriver instance.", e);
             }
-        });
+        }
     }
 }
